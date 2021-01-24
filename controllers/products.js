@@ -1,4 +1,4 @@
-const Product = require('../models/Product');
+const Product = require("../models/Product");
 
 // @desc    Get All Products
 // @route GET /api/v1/products
@@ -6,13 +6,53 @@ const Product = require('../models/Product');
 exports.getProducts = async (req, res, next) => {
   try {
     let query;
-    const reqQuery= {...req.query};
-    let queryStr = JSON.stringify(reqQuery.name)
-    console.log(req.query);
-    console.log(queryStr);
-    const products = await Product.find(req.query);
 
-    res.status(200).json({ success: true, count: products.length, data: products });
+    //Copy of req.query
+    const reqQuery = { ...req.query };
+
+    //Fields to exclude
+    const removefields = ["page", "limit"];
+
+    //Loop over remofields and delete them from reqQuery
+    removefields.forEach((param) => delete reqQuery[param]);
+    query = Product.find({
+      name: { $regex: new RegExp(req.query.name, "ig") },
+    });
+
+    // Pagination
+    const page = parseInt(req.query.page, 10) || 1;   
+    const limit = parseInt(req.query.limit, 10) || 10;   
+    const startIndex= (page-1)*limit;
+    const endIndex= page*limit;
+    const total = await Product.countDocuments();
+
+    query= query.skip(startIndex).limit(limit);
+
+    // Executing query
+    const products = await query;
+
+    //Pagination result
+    const pagination ={};
+
+      if(endIndex < total){
+        pagination.next ={
+          page: page + 1,
+          limit
+
+        }
+      }
+
+      if(startIndex > 0){
+        pagination.prev ={
+          page: page - 1,
+          limit
+
+        }
+      }
+    
+    res
+      .status(200)
+      .json({ success: true, count: products.length, pagination, data: products });
   } catch (err) {
     next(err);
   }
