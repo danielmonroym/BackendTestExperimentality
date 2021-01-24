@@ -1,6 +1,17 @@
 const mongoose = require('mongoose');
 
 const PopularProductSchema = new mongoose.Schema({
+
+    id:{
+        type: String,
+        required: [true, 'Please add an id'],
+        trim: true,
+        unique: true,
+        minlength: [5, 'Length 5 characters'],
+        maxlength: [5, 'Length 5 characters'],
+        dropDups: true
+      
+    },
     name:{
         type: String,
         required: [true, 'Please add a name'],

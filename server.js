@@ -12,7 +12,9 @@ dotenv.config({ path: "./config/config.env" });
 connectDB();
 // Route files
 const products = require("./routes/products");
-const popularProducts = require("./routes/popularproducts");
+const popularProducts = require("./routes/popularProducts");
+const productDetail = require("./routes/productDetail");
+const popularProductDetail = require("./routes/popularProductDetail");
 const app = express();
 
 // Body parser
@@ -25,6 +27,8 @@ if (process.env.NODE_ENV === "development") {
 // Mount routers
 app.use("/api/v1/products", products);
 app.use("/api/v1/popularproducts", popularProducts);
+app.use("/api/v1/productdetail", productDetail);
+app.use("/api/v1/popularproductdetail",  popularProductDetail);
 
 app.use(errorHandler);
 const PORT = process.env.PORT || 5000;

@@ -12,7 +12,7 @@ exports.getProducts = async (req, res, next) => {
 
     //Fields to exclude
     const removefields = ["page", "limit"];
-
+    
     //Loop over remofields and delete them from reqQuery
     removefields.forEach((param) => delete reqQuery[param]);
     query = Product.find({
@@ -62,6 +62,22 @@ exports.getProducts = async (req, res, next) => {
 // @route POST /api/v1/products/
 
 exports.createProduct = async (req, res, next) => {
+  try {
+    const product = await Product.create(req.body);
+
+    res.status(201).json({
+      success: true,
+      data: product,
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
+// @desc    Create a product
+// @route POST /api/v1/products/:name
+
+exports.detailProduct = async (req, res, next) => {
   try {
     const product = await Product.create(req.body);
 

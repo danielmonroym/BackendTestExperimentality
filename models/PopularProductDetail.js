@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const ProductSchema = new mongoose.Schema({
+const PopularProductDetailSchema = new mongoose.Schema({
     id:{
         type: String,
         required: [true, 'Please add an id'],
@@ -18,7 +18,7 @@ const ProductSchema = new mongoose.Schema({
         maxlength: [50, 'Max length 50 characters'],
       
     },
-    slug: String,
+    description: String,
     original_price:{
         type: Number,
         min: [0, 'min price is zero'],
@@ -37,26 +37,14 @@ const ProductSchema = new mongoose.Schema({
 
         
     },
-    front_image:{
-        type: String,
-        required:  [true, 'Please add a front image'],
-        match: [
-            /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/,
-            "Please use a valid URL with HTTP or HTTPS",
-          ],
+    images:{
+      type: [String],
+      required: true
 
     },
-    back_image:{
-        type: String,
-        required:  [true, 'Please add a back image'],
-        match: [
-            /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/,
-            "Please use a valid URL with HTTP or HTTPS",
-          ],
-
-    }
+   
  
   
 });
 
-module.exports= mongoose.model('Product', ProductSchema);
+module.exports= mongoose.model('PopularProductDetail', PopularProductDetailSchema);
