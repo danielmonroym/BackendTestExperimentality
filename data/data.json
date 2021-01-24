@@ -1,0 +1,11 @@
+{
+    "name": "Camisa Polo",
+    "original_price": 200000,
+    "discounted_price": 100000,
+    "discounted_percentage": 50,
+     "front_image": "https://http2.mlstatic.com/D_NQ_NP_775621-MCO43775286347_102020-O.webp",
+     "back_image":  "https://http2.mlstatic.com/D_NQ_NP_883875-MCO43775156103_102020-O.webp"
+
+
+
+}
