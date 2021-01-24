@@ -13,7 +13,7 @@ dotenv.config({ path: "./config/config.env" });
 connectDB();
 // Route files
 const products = require("./routes/products");
-const popularProducts = require("./routes/popularProducts");
+const popularProducts = require("./routes/popularproducts");
 const productDetail = require("./routes/productDetail");
 const popularProductDetail = require("./routes/popularProductDetail");
 const app = express();
@@ -35,8 +35,14 @@ app.use("/api/v1/popularproducts", popularProducts);
 app.use("/api/v1/productdetail", productDetail);
 app.use("/api/v1/popularproductdetail",  popularProductDetail);
 
+
+//Error handler
 app.use(errorHandler);
+
+// Server running
 const PORT = process.env.PORT || 5000;
+
+
 
 const server = app.listen(
   PORT,
