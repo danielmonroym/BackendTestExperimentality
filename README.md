@@ -8,7 +8,7 @@
 # install dependencies
 npm install
 
-# serveat localhost:5000
+# server at localhost:5000
 npm run start
 
 ```
